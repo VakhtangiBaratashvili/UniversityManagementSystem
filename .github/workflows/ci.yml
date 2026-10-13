@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build
+        run: mvn clean package -DskipTests -Pprod
+      - name: test
+        run: mvn test -DskipTests -Pprod
+      - name: deploy
+        run: scp target/university-management-system.jar user@ip:/home/vakho/university-management-system.jar
